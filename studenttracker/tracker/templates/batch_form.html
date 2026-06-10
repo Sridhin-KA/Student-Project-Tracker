@@ -1,83 +1,89 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
 
-<div class="row justify-content-center">
-
-    <div class="col-md-6 col-lg-5">
-
-        <div class="card shadow-lg border-0 rounded-4">
-
-            <div class="card-body p-5">
+<div class="row justify-content-center px-2 px-sm-3">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+            <div class="card-body p-4 p-sm-5">
 
                 <div class="text-center mb-4">
                     <div
                         class="mx-auto mb-3 d-flex align-items-center justify-content-center"
                         style="
-                            width:80px;
-                            height:80px;
-                            border-radius:50%;
-                            background:#2563eb;
-                            color:white;
-                            font-size:36px;
+                            width: 80px;
+                            height: 80px;
+                            border-radius: 50%;
+                            background: linear-gradient(135deg, #2563eb, #1e3a8a);
+                            color: white;
+                            font-size: 2rem;
+                            box-shadow: 0 8px 18px rgba(37,99,235,0.25);
                         "
                     >
                         📚
                     </div>
 
-                    <h2 class="fw-bold text-primary">
+                    <h2 class="fw-bold text-primary fs-2 fs-md-1">
                         Add New Batch
                     </h2>
 
-                    <p class="text-muted">
+                    <p class="text-muted small mb-0">
                         Create a new batch for managing students and projects.
                     </p>
                 </div>
 
                 <form method="POST">
-
                     {% csrf_token %}
 
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold mb-2">
                             Batch Name
                         </label>
-
                         {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger small mt-1">{{ form.name.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <div class="d-grid mt-4">
-
+                    <div class="d-grid gap-2 mt-4">
                         <button
                             type="submit"
-                            class="btn btn-primary btn-lg rounded-pill"
+                            class="btn btn-primary btn-lg rounded-pill py-2"
                         >
-                            Save Batch
+                            <i class="bi bi-save me-1"></i> Save Batch
                         </button>
-
                     </div>
-
                 </form>
 
-                <div class="text-center mt-3">
-
+                <div class="text-center mt-4">
                     <a
                         href="{% url 'dashboard' %}"
-                        class="btn btn-outline-secondary rounded-pill"
+                        class="btn btn-outline-secondary rounded-pill px-4"
                     >
-                        ← Back to Dashboard
+                        <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
                     </a>
-
                 </div>
 
             </div>
-
         </div>
-
     </div>
-
 </div>
 
+<!-- optional inline style for better mobile spacing -->
+<style>
+    @media (max-width: 576px) {
+        .card-body {
+            padding: 1.8rem !important;
+        }
+        .btn-lg {
+            font-size: 1rem;
+            padding: 0.6rem 1rem;
+        }
+        .form-control, .form-select {
+            font-size: 0.95rem;
+            padding: 0.6rem 0.85rem;
+        }
+    }
+</style>
+
 {% endblock %}
-```
