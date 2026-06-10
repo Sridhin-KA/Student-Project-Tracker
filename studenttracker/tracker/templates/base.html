@@ -1,581 +1,205 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>TechWing Student Tracker | Responsive Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechWing Student Tracker</title>
 
-    <!-- Bootstrap 5 CSS + Icons -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *{
+            box-sizing:border-box;
         }
 
-        body {
-            background: #f4f7fc;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            scroll-behavior: smooth;
+        body{
+            margin:0;
+            background:#f4f7fc;
+            font-family:"Segoe UI",sans-serif;
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
         }
 
-        /* ===== NAVBAR ===== */
-        .navbar {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-            padding: 0.75rem 1rem;
+        /* Navbar */
+        .navbar{
+            background:linear-gradient(90deg,#0f172a,#1e3a8a);
+            box-shadow:0 3px 15px rgba(0,0,0,.15);
+            padding:12px 0;
         }
 
-        .navbar-brand {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: white !important;
-            letter-spacing: -0.3px;
+        .navbar-brand{
+            font-size:1.4rem;
+            font-weight:700;
+            color:#fff !important;
         }
 
-        .navbar-brand i {
-            font-size: 1.8rem;
-            margin-right: 6px;
-            vertical-align: middle;
+        .nav-btn{
+            background:#fff;
+            color:#1e3a8a !important;
+            border-radius:30px;
+            padding:8px 18px;
+            font-weight:600;
+            text-decoration:none;
+            transition:.3s;
+            display:inline-flex;
+            align-items:center;
+            gap:6px;
         }
 
-        .nav-btn-custom {
-            background: white;
-            color: #1e3a8a !important;
-            border-radius: 40px;
-            padding: 6px 20px;
-            font-weight: 600;
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        .nav-btn:hover{
+            background:#2563eb;
+            color:#fff !important;
         }
 
-        .nav-btn-custom:hover {
-            background: #2563eb;
-            color: white !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(37,99,235,0.25);
+        /* Main content */
+        .content-wrapper{
+            flex:1;
         }
 
-        /* mobile navbar toggler icon */
-        .navbar-toggler {
-            border: none;
-            background: rgba(255,255,255,0.2);
-            padding: 6px 12px;
-        }
-        .navbar-toggler:focus {
-            box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
-        }
-        .navbar-toggler-icon {
-            filter: brightness(0) invert(1);
+        .main-card{
+            background:#fff;
+            border-radius:18px;
+            margin-top:25px;
+            margin-bottom:25px;
+            padding:30px;
+            box-shadow:0 8px 30px rgba(0,0,0,.08);
         }
 
-        /* ===== MAIN CARD ===== */
-        .main-card {
-            background: #ffffff;
-            padding: 1.8rem;
-            border-radius: 28px;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
-            transition: all 0.2s;
-        }
-
-        /* section headings */
-        h1, h2, h3, h4, h5 {
-            color: #0f172a;
-            font-weight: 700;
-        }
-
-        /* Stats cards */
-        .stat-card {
-            border: none;
-            border-radius: 24px;
-            background: white;
-            transition: all 0.25s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
-        }
-        .stat-icon {
-            font-size: 2.5rem;
-            background: #eef2ff;
-            width: 58px;
-            height: 58px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 30px;
-            color: #2563eb;
-        }
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 800;
-            line-height: 1.2;
-            color: #0f172a;
+        /* Cards */
+        .card{
+            border:none;
+            border-radius:16px;
+            box-shadow:0 4px 15px rgba(0,0,0,.08);
         }
 
         /* Buttons */
-        .btn-primary {
-            background: #2563eb;
-            border: none;
-            padding: 8px 20px;
-            font-weight: 600;
-            border-radius: 40px;
-            transition: all 0.2s;
-        }
-        .btn-primary:hover {
-            background: #1d4ed8;
-            transform: scale(0.97);
-        }
-        .btn-success {
-            background: #10b981;
-            border: none;
-            font-weight: 600;
-            border-radius: 40px;
-        }
-        .btn-success:hover {
-            background: #059669;
-        }
-        .btn-outline-secondary {
-            border-radius: 30px;
+        .btn{
+            border-radius:10px;
         }
 
-        /* Table wrapper (horizontal scroll on mobile) */
-        .table-responsive-stack {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .table {
-            margin-bottom: 0;
-            border-radius: 20px;
-            min-width: 600px;
-        }
-        .table thead {
-            background: #1e3a8a;
-            color: white;
-        }
-        .table thead th {
-            font-weight: 600;
-            border-bottom: none;
-            padding: 14px 12px;
-        }
-        .table tbody tr:hover {
-            background-color: #f8fafc;
-        }
-        .badge-status {
-            padding: 6px 12px;
-            border-radius: 40px;
-            font-weight: 500;
-            font-size: 0.75rem;
-        }
-        .action-icons i {
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin: 0 6px;
-            transition: 0.15s;
-        }
-        .action-icons i.bi-pencil-square {
-            color: #2563eb;
-        }
-        .action-icons i.bi-trash3 {
-            color: #dc2626;
-        }
-        .action-icons i:hover {
-            transform: scale(1.15);
+        /* Tables */
+        .table-responsive{
+            overflow-x:auto;
         }
 
-        /* modal responsive */
-        .modal-content {
-            border-radius: 24px;
-            border: none;
+        /* Images */
+        img{
+            max-width:100%;
+            height:auto;
         }
 
-        /* footer */
-        footer {
-            margin-top: 2rem;
-            text-align: center;
-            color: #5b6e8c;
-            padding: 1.5rem 0.5rem;
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
+        footer{
+            text-align:center;
+            padding:18px;
+            color:#6b7280;
+            font-size:.9rem;
+            background:#fff;
+            border-top:1px solid #e5e7eb;
         }
 
-        /* small devices fine-tuning */
-        @media (max-width: 768px) {
-            .main-card {
-                padding: 1.2rem;
-                border-radius: 20px;
+        /* Tablet */
+        @media (max-width: 768px){
+
+            .navbar-brand{
+                font-size:1.2rem;
             }
-            .stat-value {
-                font-size: 1.6rem;
+
+            .main-card{
+                padding:20px;
+                margin-top:15px;
             }
-            .stat-icon {
-                width: 48px;
-                height: 48px;
-                font-size: 1.8rem;
-            }
-            .navbar-brand {
-                font-size: 1.3rem;
-            }
-            .navbar-brand i {
-                font-size: 1.4rem;
-            }
-            .nav-btn-custom {
-                padding: 5px 16px;
-                font-size: 0.85rem;
-            }
-            .btn-primary, .btn-success {
-                padding: 6px 16px;
-                font-size: 0.85rem;
+
+            h1{font-size:2rem;}
+            h2{font-size:1.6rem;}
+            h3{font-size:1.3rem;}
+
+            .nav-btn{
+                padding:7px 14px;
+                font-size:.9rem;
             }
         }
 
-        @media (max-width: 576px) {
-            .stat-card .d-flex {
-                flex-direction: column;
-                align-items: flex-start !important;
-                gap: 8px;
+        /* Mobile */
+        @media (max-width: 576px){
+
+            .navbar .container{
+                display:flex;
+                flex-direction:column;
+                gap:12px;
+                align-items:center;
             }
-            .stat-icon {
-                margin-bottom: 4px;
+
+            .navbar-brand{
+                text-align:center;
+            }
+
+            .main-card{
+                padding:15px;
+                border-radius:12px;
+            }
+
+            .nav-btn{
+                width:100%;
+                justify-content:center;
+            }
+
+            .btn{
+                width:100%;
+                margin-bottom:8px;
+            }
+
+            table{
+                font-size:.9rem;
+            }
+
+            footer{
+                font-size:.8rem;
             }
         }
     </style>
 </head>
+
 <body>
 
-<!-- ================= RESPONSIVE NAVBAR (COLLAPSIBLE) ================= -->
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <i class="bi bi-mortarboard-fill"></i> Student Tracker
+<nav class="navbar">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap">
+
+        <a class="navbar-brand" href="/">
+            <i class="bi bi-mortarboard-fill"></i>
+            TechWing Student Tracker
         </a>
-        <!-- Hamburger button for mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMainContent" aria-controls="navbarMainContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarMainContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-2">
-                <li class="nav-item">
-                    <a class="nav-btn-custom" href="#">
-                        <i class="bi bi-speedometer2"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-btn-custom" href="#" id="scrollToTableBtn">
-                        <i class="bi bi-people-fill"></i> Students
-                    </a>
-                </li>
-            </ul>
+
+        <div class="d-flex gap-2 flex-wrap justify-content-center">
+            <a href="/dashboard/" class="nav-btn">
+                <i class="bi bi-speedometer2"></i>
+                Dashboard
+            </a>
         </div>
+
     </div>
 </nav>
 
-<div class="container">
-    <div class="main-card">
-        <!-- dynamic content block (fully responsive) -->
-        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
-            <div>
-                <h2 class="mb-1"><i class="bi bi-trophy-fill text-primary me-2"></i>Student Performance Hub</h2>
-                <p class="text-muted">Manage records, track status, and monitor student insights</p>
-            </div>
-            <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#studentModal" id="openAddModalBtn">
-                <i class="bi bi-plus-circle me-1"></i> Add New Student
-            </button>
-        </div>
+<div class="content-wrapper">
+    <div class="container">
+        <div class="main-card">
 
-        <!-- STATS CARDS (fully responsive grid) -->
-        <div class="row g-4 mb-5">
-            <div class="col-sm-6 col-xl-4">
-                <div class="card stat-card p-3 h-100">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="text-secondary text-uppercase small fw-semibold">Total Students</span>
-                            <div class="stat-value" id="totalStudentsCount">0</div>
-                        </div>
-                        <div class="stat-icon"><i class="bi bi-people"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-4">
-                <div class="card stat-card p-3 h-100">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="text-secondary text-uppercase small fw-semibold">Active Learners</span>
-                            <div class="stat-value text-success" id="activeStudentsCount">0</div>
-                        </div>
-                        <div class="stat-icon"><i class="bi bi-star-fill text-warning"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-4">
-                <div class="card stat-card p-3 h-100">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="text-secondary text-uppercase small fw-semibold">Graduated + Inactive</span>
-                            <div class="stat-value text-info" id="otherStatusCount">0</div>
-                        </div>
-                        <div class="stat-icon"><i class="bi bi-journal-check"></i></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            {% block content %}
+            {% endblock %}
 
-        <!-- STUDENT LIST (RESPONSIVE TABLE) -->
-        <div class="d-flex justify-content-between align-items-center mt-3 mb-3 flex-wrap gap-2">
-            <h4 class="mb-0"><i class="bi bi-table"></i> Registered Students</h4>
-            <span class="badge bg-light text-dark px-3 py-2 rounded-pill"><i class="bi bi-info-circle"></i> Scroll table →</span>
-        </div>
-        <div class="table-responsive-stack">
-            <table class="table table-hover align-middle" id="studentTable">
-                <thead>
-                    <tr>
-                        <th>#ID</th><th>Full Name</th><th>Email</th><th>Course</th><th>Status</th><th style="width:100px">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="studentTableBody">
-                    <!-- dynamic rows injected -->
-                </tbody>
-            </table>
-        </div>
-        <div class="text-muted small mt-2 text-center text-md-start">
-            <i class="bi bi-phone-flip"></i> Fully responsive — swipe table horizontally on mobile
         </div>
     </div>
 </div>
 
 <footer>
-    <i class="bi bi-c-circle"></i> 2026 TechWing Student Tracker — seamless across all devices
+    © 2026 TechWing Student Tracker. All Rights Reserved.
 </footer>
 
-<!-- ADD / EDIT STUDENT MODAL (Fully responsive form) -->
-<div class="modal fade" id="studentModal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-light border-0">
-                <h5 class="modal-title fw-bold" id="studentModalLabel"><i class="bi bi-person-plus-fill text-primary me-2"></i>Add Student</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body px-4">
-                <form id="studentForm">
-                    <input type="hidden" id="editId" value="">
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Full Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="studentName" placeholder="e.g., Sarah Johnson" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Email Address</label>
-                        <input type="email" class="form-control" id="studentEmail" placeholder="student@example.com">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Course / Department</label>
-                        <input type="text" class="form-control" id="studentCourse" placeholder="Computer Science, Engineering, etc.">
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold">Academic Status</label>
-                        <select class="form-select" id="studentStatus">
-                            <option value="Active">✅ Active</option>
-                            <option value="Inactive">⏸️ Inactive</option>
-                            <option value="Graduated">🎓 Graduated</option>
-                        </select>
-                    </div>
-                    <div class="d-flex justify-content-end gap-2">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary px-4">Save Student</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    // ---------- STUDENT DATA (responsive interactive dashboard) ----------
-    let students = [
-        { id: 1001, name: "Olivia Chen", email: "olivia.chen@techwing.edu", course: "Data Science", status: "Active" },
-        { id: 1002, name: "Michael Rivera", email: "m.rivera@techwing.edu", course: "Cybersecurity", status: "Active" },
-        { id: 1003, name: "Emma Watson", email: "emma.w@techwing.edu", course: "UI/UX Design", status: "Graduated" },
-        { id: 1004, name: "James Carter", email: "james.c@techwing.edu", course: "Software Engineering", status: "Inactive" }
-    ];
-    let nextId = 1005;
-
-    // DOM elements
-    const tbody = document.getElementById('studentTableBody');
-    const totalSpan = document.getElementById('totalStudentsCount');
-    const activeSpan = document.getElementById('activeStudentsCount');
-    const otherSpan = document.getElementById('otherStatusCount');
-
-    const studentModal = new bootstrap.Modal(document.getElementById('studentModal'));
-    const form = document.getElementById('studentForm');
-    const editIdInput = document.getElementById('editId');
-    const nameInput = document.getElementById('studentName');
-    const emailInput = document.getElementById('studentEmail');
-    const courseInput = document.getElementById('studentCourse');
-    const statusSelect = document.getElementById('studentStatus');
-    const modalTitle = document.getElementById('studentModalLabel');
-
-    // Helper: update statistics cards (responsive counts)
-    function updateStats() {
-        const total = students.length;
-        const activeCount = students.filter(s => s.status === 'Active').length;
-        const otherCount = total - activeCount;  // graduated + inactive
-        totalSpan.innerText = total;
-        activeSpan.innerText = activeCount;
-        otherSpan.innerText = otherCount;
-    }
-
-    // render table: fully responsive + action buttons
-    function renderTable() {
-        if (!tbody) return;
-        if (students.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="text-center py-5 text-muted"><i class="bi bi-person-slash fs-4"></i><br>No students found. Click "Add New Student"</td></tr>`;
-            updateStats();
-            return;
-        }
-        let html = '';
-        students.forEach((student, idx) => {
-            let statusClass = '';
-            if (student.status === 'Active') statusClass = 'bg-success bg-opacity-10 text-success border-0';
-            else if (student.status === 'Inactive') statusClass = 'bg-secondary bg-opacity-10 text-secondary border-0';
-            else statusClass = 'bg-info bg-opacity-10 text-info border-0';
-            
-            html += `
-                <tr data-id="${student.id}">
-                    <td class="fw-medium">${student.id}</td>
-                    <td><i class="bi bi-person-circle me-2"></i>${escapeHtml(student.name)}</td>
-                    <td class="text-truncate" style="max-width:180px;">${escapeHtml(student.email)}</td>
-                    <td>${escapeHtml(student.course) || '—'}</td>
-                    <td><span class="badge badge-status ${statusClass} px-3 py-1">${student.status}</span></td>
-                    <td class="action-icons">
-                        <i class="bi bi-pencil-square" data-bs-toggle="tooltip" title="Edit Student" onclick="openEditModal(${student.id})"></i>
-                        <i class="bi bi-trash3" onclick="deleteStudent(${student.id})" style="cursor:pointer;"></i>
-                    </td>
-                </tr>
-            `;
-        });
-        tbody.innerHTML = html;
-        updateStats();
-    }
-
-    // simple XSS protection
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
-        });
-    }
-
-    // delete student
-    window.deleteStudent = function(id) {
-        if (confirm('Are you sure you want to remove this student? This action is permanent.')) {
-            students = students.filter(s => s.id !== id);
-            renderTable();
-            // if modal open while deleting, but fine
-        }
-    };
-
-    // open edit modal with data
-    window.openEditModal = function(id) {
-        const student = students.find(s => s.id === id);
-        if (!student) return;
-        editIdInput.value = student.id;
-        nameInput.value = student.name;
-        emailInput.value = student.email;
-        courseInput.value = student.course;
-        statusSelect.value = student.status;
-        modalTitle.innerHTML = '<i class="bi bi-pencil-square text-primary me-2"></i>Edit Student';
-        studentModal.show();
-    };
-
-    // reset modal to "add" mode
-    function resetModalToAdd() {
-        editIdInput.value = '';
-        nameInput.value = '';
-        emailInput.value = '';
-        courseInput.value = '';
-        statusSelect.value = 'Active';
-        modalTitle.innerHTML = '<i class="bi bi-person-plus-fill text-primary me-2"></i>Add Student';
-    }
-
-    // save (create or update)
-    function handleStudentSave(event) {
-        event.preventDefault();
-        const name = nameInput.value.trim();
-        if (!name) {
-            alert('Student name is required');
-            return;
-        }
-        const email = emailInput.value.trim();
-        const course = courseInput.value.trim();
-        const status = statusSelect.value;
-        const editId = editIdInput.value;
-
-        if (editId) {
-            // update existing student
-            const index = students.findIndex(s => s.id == editId);
-            if (index !== -1) {
-                students[index] = {
-                    ...students[index],
-                    name: name,
-                    email: email,
-                    course: course,
-                    status: status
-                };
-            }
-        } else {
-            // add new student
-            const newId = nextId++;
-            students.push({
-                id: newId,
-                name: name,
-                email: email,
-                course: course,
-                status: status
-            });
-        }
-        renderTable();
-        studentModal.hide();
-        resetModalToAdd();
-    }
-
-    // Event listener for add button to reset modal
-    document.getElementById('openAddModalBtn')?.addEventListener('click', () => {
-        resetModalToAdd();
-    });
-
-    form.addEventListener('submit', handleStudentSave);
-    
-    // optional: smooth scroll to table when clicking nav button
-    document.getElementById('scrollToTableBtn')?.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.querySelector('.main-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
-    // Initial render + stats
-    renderTable();
-
-    // add resize & touch friendly, ensure modal doesn't cause horizontal overflow
-    window.addEventListener('resize', () => {});
-    
-    // Optional: close modal on backdrop clear
-    // ensures all interactions keep ui intact
-</script>
 </body>
 </html>
+```
