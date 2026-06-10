@@ -1,0 +1,110 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="text-center mb-5">
+    <h1 class="fw-bold text-primary">Student Project Tracker</h1>
+    <p class="text-muted">
+        Browse batches and view submitted student projects in one place.
+    </p>
+</div>
+
+<!-- Search Box -->
+<div class="row justify-content-center mb-4">
+    <div class="col-md-6">
+        <input
+            type="text"
+            id="batchSearch"
+            class="form-control form-control-lg"
+            placeholder="🔍 Search batch..."
+            onkeyup="filterBatches()"
+        >
+    </div>
+</div>
+
+<!-- Batch Cards -->
+<div class="row" id="batchContainer">
+
+    {% for batch in batches %}
+
+    <div class="col-lg-4 col-md-6 mb-4 batch-card">
+
+        <div class="card border-0 shadow-sm h-100 rounded-4">
+
+            <div class="card-body text-center p-4">
+
+                <div class="mb-3">
+                    <div style="
+                        width:70px;
+                        height:70px;
+                        border-radius:50%;
+                        background:#2563eb;
+                        color:white;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:28px;
+                        margin:auto;
+                    ">
+                        📚
+                    </div>
+                </div>
+
+                <h4 class="fw-bold batch-name">
+                    {{ batch.name }}
+                </h4>
+
+                <p class="text-muted">
+                    {{ batch.students.count }} Students
+                </p>
+
+                <a
+                    href="{% url 'batch_detail' batch.id %}"
+                    class="btn btn-primary rounded-pill px-4"
+                >
+                    View Batch →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="text-center">
+        <h4>No batches available.</h4>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<script>
+function filterBatches() {
+
+    let input = document.getElementById("batchSearch").value.toLowerCase();
+
+    let cards = document.getElementsByClassName("batch-card");
+
+    for (let i = 0; i < cards.length; i++) {
+
+        let name = cards[i]
+            .querySelector(".batch-name")
+            .innerText
+            .toLowerCase();
+
+        if (name.includes(input)) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+{% endblock %}
+```

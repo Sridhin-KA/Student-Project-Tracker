@@ -1,0 +1,117 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold text-primary">{{ batch.name }}</h2>
+        <p class="text-muted">
+            Total Students: {{ batch.students.count }}
+        </p>
+    </div>
+
+    <a href="/" class="btn btn-outline-primary rounded-pill">
+        ← Back to Batches
+    </a>
+</div>
+
+<!-- Search -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <input
+            type="text"
+            id="studentSearch"
+            class="form-control form-control-lg"
+            placeholder="🔍 Search student..."
+            onkeyup="filterStudents()"
+        >
+    </div>
+</div>
+
+<!-- Student Cards -->
+<div class="row" id="studentContainer">
+
+    {% for student in batch.students.all %}
+
+    <div class="col-lg-4 col-md-6 mb-4 student-card">
+
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+
+            <div class="card-body text-center">
+
+                <div
+                    class="mx-auto mb-3 d-flex align-items-center justify-content-center"
+                    style="
+                        width:70px;
+                        height:70px;
+                        border-radius:50%;
+                        background:#2563eb;
+                        color:white;
+                        font-size:28px;
+                        font-weight:bold;
+                    "
+                >
+                    {{ student.name|first|upper }}
+                </div>
+
+                <h5 class="student-name fw-bold">
+                    {{ student.name }}
+                </h5>
+
+                <p class="text-muted">
+                    Click below to view submitted projects
+                </p>
+
+                <a
+                    href="{% url 'student_detail' student.id %}"
+                    class="btn btn-primary rounded-pill px-4"
+                >
+                    View Projects
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="text-center">
+        <h4>No students found.</h4>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<script>
+function filterStudents() {
+
+    const input = document
+        .getElementById("studentSearch")
+        .value
+        .toLowerCase();
+
+    const cards = document.getElementsByClassName("student-card");
+
+    for (let i = 0; i < cards.length; i++) {
+
+        const name = cards[i]
+            .querySelector(".student-name")
+            .innerText
+            .toLowerCase();
+
+        if (name.includes(input)) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+{% endblock %}
+```

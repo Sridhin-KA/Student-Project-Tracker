@@ -1,0 +1,100 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-7 col-md-9">
+
+        <div class="card border-0 shadow-lg rounded-4">
+
+            <div class="card-body p-5">
+
+                <!-- Header -->
+                <div class="text-center mb-4">
+
+                    <div
+                        class="mx-auto mb-3 d-flex align-items-center justify-content-center"
+                        style="
+                            width:80px;
+                            height:80px;
+                            border-radius:50%;
+                            background:linear-gradient(135deg,#2563eb,#1e40af);
+                            color:white;
+                            font-size:36px;
+                        "
+                    >
+                        🔗
+                    </div>
+
+                    <h2 class="fw-bold text-primary">
+                        Add Project
+                    </h2>
+
+                    <p class="text-muted">
+                        Assign a project link to a student.
+                    </p>
+
+                </div>
+
+                <!-- Form -->
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    {% for field in form %}
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    {% endfor %}
+
+                    <div class="d-grid mt-4">
+
+                        <button
+                            type="submit"
+                            class="btn btn-success btn-lg rounded-pill"
+                        >
+                            Save Project
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <!-- Footer -->
+                <div class="text-center mt-4">
+
+                    <a
+                        href="{% url 'dashboard' %}"
+                        class="btn btn-outline-secondary rounded-pill"
+                    >
+                        ← Back to Dashboard
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+```
